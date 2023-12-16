@@ -15,13 +15,19 @@ https://docs.google.com/document/d/1BOKjkTQWjdd6jwZ8ug8n2JJVWhtWficuf22BKkEKJ1g/
 Практический блок 2: Работа с базой данных
 
 Задание 1. Представь: тебе нужно проверить, отображается ли созданный заказ в базе данных.
+
 SELECT cou.login, COUNT (*) AS "inDeliveryCount" FROM "Couriers" AS cou JOIN "Orders" AS ord ON cou.id = ord."courierId" WHERE ord."inDelivery" = true GROUP BY cou.login;
+
 Задание 2. Ты тестируешь статусы заказов. Нужно убедиться, что в базе данных они записываются корректно.
+
 1. SELECT track, cancelled, finished, "inDelivery" FROM "Orders";
-2. SELECT track, CASE WHEN finished = true THEN '2' WHEN "inDelivery" = true THEN '1' WHEN cancelled = true THEN '-1' ELSE '0' END FROM "Orders";
+2. 
+3. SELECT track, CASE WHEN finished = true THEN '2' WHEN "inDelivery" = true THEN '1' WHEN cancelled = true THEN '-1' ELSE '0' END FROM "Orders";
+   
 Технические примечания:
 Доступ к базе осуществляется с помощью команды psql -U morty -d scooter_rent. Пароль: smith.
 У psql есть особенность: если таблица в базе данных с большой буквы, то её в запросе нужно брать в кавычки. Например, select * from “Orders”.
+
 Задание 3. Автоматизация теста к API
 Теперь автоматизируй сценарий, который подготовили коллеги-тестировщики:
 Клиент создает заказ.
@@ -29,10 +35,12 @@ SELECT cou.login, COUNT (*) AS "inDeliveryCount" FROM "Couriers" AS cou JOIN "Or
 Технические примечания:
 К проекту добавь файлы .gitignore и README.MD .
 Логи лежат в файле error.log в папке /var/www/backend/logs.
+
 configuration.py
 URL_SERVICE = "https://10306dab-f44a-4b9c-9484-5f125d9a19d1.serverhub.praktikum-services.ru/"
 CREATE_ORDER = "api/v1/orders"
 REQUEST_ORDER = "/v1/orders/track?t"
+
 data.py
 order_body = {
     "firstName": "Naruto",
@@ -47,6 +55,7 @@ order_body = {
         "BLACK"
     ]
 }
+
 sender_stand_request.py
 import configuration
 import requests
@@ -67,6 +76,7 @@ def get_order_on_number():
 
 response  = get_order_on_number()
 print(response.status_code)
+
 test_order_by_number.py
 import sender_stand_request
 def positive_assert():
