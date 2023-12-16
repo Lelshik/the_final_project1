@@ -13,6 +13,7 @@
 https://docs.google.com/document/d/1BOKjkTQWjdd6jwZ8ug8n2JJVWhtWficuf22BKkEKJ1g/edit?usp=sharing
 
 Практический блок 2: Работа с базой данных
+
 Задание 1. Представь: тебе нужно проверить, отображается ли созданный заказ в базе данных.
 SELECT cou.login, COUNT (*) AS "inDeliveryCount" FROM "Couriers" AS cou JOIN "Orders" AS ord ON cou.id = ord."courierId" WHERE ord."inDelivery" = true GROUP BY cou.login;
 Задание 2. Ты тестируешь статусы заказов. Нужно убедиться, что в базе данных они записываются корректно.
